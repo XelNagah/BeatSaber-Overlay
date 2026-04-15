@@ -1,6 +1,7 @@
 import { Globals } from "./global.js";
 import { Template } from "./template.js";
 import { ScoreSaber } from "./scoreSaber.js";
+import { BeatLeader } from "./beatLeader.js";
 
 export class PlayerCard {
 
@@ -14,6 +15,7 @@ export class PlayerCard {
     /////////////////////
     private _template: Template;
     private _scoreSaber: ScoreSaber;
+	private _beatLeader: BeatLeader = new BeatLeader();
 
     /////////////////////
     // PUBLIC VARIABLE //
@@ -30,9 +32,9 @@ export class PlayerCard {
         playerId: "0",
         avatar: "./pictures/default/notFound.jpg",
         playerFlag: "./pictures/country/FR.svg",
-        topWorld: 0,
-        topCountry: 0,
-        performancePoint: 0
+        topWorld: "0",
+        topCountry: "0",
+        performancePoint: "0 pp"
     };
 
     constructor() {
@@ -44,24 +46,79 @@ export class PlayerCard {
     // PRIVATE FUNCTION //
     //////////////////////
     private async updatePlayerInfo(): Promise<void> {
-        if (this.playerCardData.disabled
-            || !this.playerCardData.display
-            || !this.playerCardData.needUpdate
-            || this.playerCardData.playerId === "0")
-            return;
+    if (this.playerCardData.disabled
+        || !this.playerCardData.display
+        || !this.playerCardData.needUpdate
+        || this.playerCardData.playerId === "0")
+        return;
 
-        this.playerCardData.needUpdate = false;
-        const data = await this._scoreSaber.getPlayerInfo(this.playerCardData.playerId);
+    this.playerCardData.needUpdate = false;
 
-        if (data.errorMessage !== undefined)
-            return;
+    const [scoreSaberData, beatLeaderData] = await Promise.all([
+        this._scoreSaber.getPlayerInfo(this.playerCardData.playerId),
+        this._beatLeader.getPlayerInfo(this.playerCardData.playerId)
+    ]);
 
-        this.playerCardData.avatar = data.profilePicture;
-        this.playerCardData.playerFlag = "./pictures/country/" + data.country + ".svg";
-        this.playerCardData.topWorld = data.rank;
-        this.playerCardData.topCountry = data.countryRank;
-        this.playerCardData.performancePoint = data.pp;
+    const ssOk = scoreSaberData.errorMessage === undefined;
+    const blOk = beatLeaderData.errorMessage === undefined;
+
+    if (!ssOk && !blOk)
+        return;
+
+    this.playerCardData.avatar =
+        ssOk ? scoreSaberData.profilePicture :
+        blOk ? beatLeaderData.profilePicture :
+        "./pictures/default/notFound.jpg";
+
+    const country =
+        ssOk ? scoreSaberData.country :
+        blOk ? beatLeaderData.country :
+        "FR";
+
+    const flagUrl = "./pictures/country/" + country + ".svg";
+    this.playerCardData.playerFlag = flagUrl;
+    const flagAbsUrl = window.location.origin + "/pictures/country/" + country + ".svg";
+    document.documentElement.style.setProperty("--country-flag-url", "url('" + flagAbsUrl + "')");
+
+    this.playerCardData.topWorld = this.buildDualMetric(
+        "SS ", ssOk ? scoreSaberData.rank : null,
+        "BL ", blOk ? beatLeaderData.rank : null
+    );
+
+    this.playerCardData.topCountry = this.buildDualMetric(
+        "SS ", ssOk ? scoreSaberData.countryRank : null,
+        "BL ", blOk ? beatLeaderData.countryRank : null
+    );
+
+    const sspp = ssOk ? Math.round(scoreSaberData.pp) : null;
+    const blpp = blOk ? Math.round(beatLeaderData.pp) : null;
+    if (sspp !== null && blpp !== null)
+        this.playerCardData.performancePoint = "SS " + sspp + " | BL " + blpp + " pp";
+    else if (sspp !== null)
+        this.playerCardData.performancePoint = "SS " + sspp + " pp";
+    else if (blpp !== null)
+        this.playerCardData.performancePoint = "BL " + blpp + " pp";
+}
+	
+	private buildDualMetric(
+    ssLabel: string,
+    ssValue: string | number | null | undefined,
+    blLabel: string,
+    blValue: string | number | null | undefined,
+    suffix: string = ""
+): string {
+    const parts: string[] = [];
+
+    if (ssValue !== null && ssValue !== undefined) {
+        parts.push(`${ssLabel}${ssValue}${suffix}`);
     }
+
+    if (blValue !== null && blValue !== undefined) {
+        parts.push(`${blLabel}${blValue}${suffix}`);
+    }
+
+    return parts.join(" | ");
+}
 
     /////////////////////
     // PUBLIC FUNCTION //

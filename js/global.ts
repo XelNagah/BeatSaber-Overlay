@@ -138,9 +138,9 @@ export namespace Globals {
         playerId: string;           // ScoreSaber ID of the player
         avatar: string;             // Avatar of the player
         playerFlag: string;         // Country flag of the player (./pictures/country/COUNTRYCODE.svg)
-        topWorld: number;           // World rank of the player
-        topCountry: number;         // Country rank if the player
-        performancePoint: number;   // PP of the player (Nice again :OwO:)
+        topWorld: string;           // World rank of the player
+        topCountry: string;         // Country rank if the player
+        performancePoint: string;   // PP of the player (Nice again :OwO:)
     }
 
     //////////////////////////////
