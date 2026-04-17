@@ -1,0 +1,7 @@
+node_modules/
+.git/
+.claude/
+php/Cache/
+php/cache/
+js/*.js
+docs/
