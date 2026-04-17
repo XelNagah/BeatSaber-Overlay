@@ -90,14 +90,14 @@ export class PlayerCard {
         "BL ", blOk ? beatLeaderData.countryRank : null
     );
 
-    const sspp = ssOk ? Math.round(scoreSaberData.pp) : null;
-    const blpp = blOk ? Math.round(beatLeaderData.pp) : null;
+    const sspp = ssOk ? scoreSaberData.pp.toFixed(1) : null;
+    const blpp = blOk ? beatLeaderData.pp.toFixed(1) : null;
     if (sspp !== null && blpp !== null)
-        this.playerCardData.performancePoint = "SS " + sspp + " | BL " + blpp + " pp";
+        this.playerCardData.performancePoint = "SS " + sspp + " | BL " + blpp;
     else if (sspp !== null)
-        this.playerCardData.performancePoint = "SS " + sspp + " pp";
+        this.playerCardData.performancePoint = "SS " + sspp;
     else if (blpp !== null)
-        this.playerCardData.performancePoint = "BL " + blpp + " pp";
+        this.playerCardData.performancePoint = "BL " + blpp;
 }
 	
 	private buildDualMetric(

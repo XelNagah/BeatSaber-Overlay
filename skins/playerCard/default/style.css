@@ -137,6 +137,24 @@
     display: inline-block;
 }
 
+/* "PP" label al inicio — posición izquierda */
+#playerCard.top-left #performancePoint::before,
+#playerCard.bottom-left #performancePoint::before {
+    content: "PP ";
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+}
+
+/* "PP" label al final — posición derecha */
+#playerCard.top-right #performancePoint::after,
+#playerCard.bottom-right #performancePoint::after {
+    content: " PP";
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+}
+
 /* Ícono bandera del jugador junto a topCountry — top-left y bottom-left */
 #playerCard.top-left #topCountry::after,
 #playerCard.bottom-left #topCountry::after {
