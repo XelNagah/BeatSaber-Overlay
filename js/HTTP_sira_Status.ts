@@ -122,6 +122,7 @@ export class HTTP_sira_Status {
 
         this._songCard.songCardData.difficulty = <string>dataEvent.status.beatmap?.difficulty;
         this._songCard.songCardData.difficultyClass = <string>dataEvent.status.beatmap?.difficultyEnum;
+        this._songCard.songCardData.characteristic = dataEvent.status.beatmap?.characteristic ?? "Standard";
 
         if (dataEvent.status.beatmap?.start !== null && dataEvent.status.beatmap?.start !== undefined)
             this._songCard.songCardData.time = dataEvent.time - dataEvent.status.beatmap?.start;

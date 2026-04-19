@@ -11,6 +11,10 @@ export namespace Globals {
 
     export const URI_NAV_SEARCH = window.location.search;
     export const SCORESABER_API_PROXY_URL = "./php/scoreSaberProxy.php";
+    export const SCORESABER_LEADERBOARD_PROXY_URL = "./php/scoreSaberLeaderboardProxy.php";
+    export const SCORESABER_SCORE_PROXY_URL = "./php/scoreSaberScoreProxy.php";
+    export const BEATLEADER_LEADERBOARD_PROXY_URL = "./php/beatLeaderLeaderboardProxy.php";
+    export const BEATLEADER_SCORE_PROXY_URL = "./php/beatLeaderScoreProxy.php";
     export const BEATSAVER_API_URL = "https://api.beatsaver.com";
     export const MS_TIMER = 100;
 
@@ -95,6 +99,25 @@ export namespace Globals {
         rank: number;               // Player rank in the world
         pp: number;                 // Player pp (Nice :smirk:)
     }
+    export interface I_scoreSaberLeaderboardJSON {
+        error?: string;
+        maxPP: number;
+        stars: number;
+    }
+    export interface I_scoreSaberPlayerScoreJSON {
+        error?: string;
+        pp: number;
+    }
+    export interface I_beatLeaderLeaderboardJSON {
+        error?: string;
+        accRating: number;
+        passRating: number;
+        techRating: number;
+    }
+    export interface I_beatLeaderPlayerScoreJSON {
+        error?: string;
+        pp: number;
+    }
 
     ///////////////////////////////
     // BEATSAVER GLOBAL VARIABLE //
@@ -173,6 +196,7 @@ export namespace Globals {
 
         difficulty: string;             // Difficulty of the actual song (Easy, Normal, Hard, Expert, Expert+)
         difficultyClass: string;        // Class Difficulty of the actual song (Easy, Normal, Hard, Expert, ExpertPlus)
+        characteristic: string;         // Characteristic of the actual song (Standard, OneSaber, etc ...)
 
         ranked: boolean;                // Song is ranked ?
         qualified: boolean;             // Song is qualified ?
@@ -195,6 +219,12 @@ export namespace Globals {
         health: number;                 // Player health of the actual song
 
         speedModifier: number;          // Time multiplier of the actual song (If player play the map in 125%, multiplier is 1.25)
+
+        ssPP: string;                   // Current ScoreSaber PP estimate
+        blPP: string;                   // Current BeatLeader PP estimate
+        ssDelta: string;                // Delta versus best ScoreSaber PP on this map
+        blDelta: string;                // Delta versus best BeatLeader PP on this map
+        mapPPDelta: string;             // Legacy alias for the ScoreSaber delta on this map
     }
 
     /////////////////////////////

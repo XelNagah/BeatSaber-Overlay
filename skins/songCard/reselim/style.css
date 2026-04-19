@@ -232,6 +232,26 @@
     opacity: 0.75;
 }
 
+.ppGroup {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.ppGroup .subtext {
+    opacity: 1;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.ppGroup span:empty {
+    display: none;
+}
+
+#songCard.stop .ppGroup {
+    display: none;
+}
+
 #accuracy:after {
     content: "%";
 }

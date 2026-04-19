@@ -75,6 +75,9 @@
 #songData {
     width: 500px;
     height: 140px;
+    position: relative;
+    box-sizing: border-box;
+    padding-top: 24px;
 
     display: flex;
     flex-direction: column;
@@ -249,6 +252,132 @@
 
 #accuracy::after {
     content: "%";
+}
+
+.ppGroup {
+    position: absolute;
+    top: 67px;
+    display: grid;
+    gap: 4px;
+    padding: 0;
+    font-size: 14px;
+    line-height: 15px;
+    color: rgba(255, 255, 255, 0.96);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
+}
+
+#songCard.top-left .ppGroup,
+#songCard.bottom-left .ppGroup {
+    right: 0;
+}
+
+#songCard.top-right .ppGroup,
+#songCard.bottom-right .ppGroup {
+    left: 0;
+}
+
+.ppRow {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 3px;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.ppRow:has(.ppValue:empty) {
+    display: none;
+}
+
+.ppGroup:not(:has(.ppValue:not(:empty))) {
+    display: none;
+}
+
+.ppSystem {
+    order: 3;
+    flex: 0 0 14px;
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    opacity: 0.95;
+    font-size: 0;
+    line-height: 0;
+}
+
+.ppSystemSS {
+    background-image: url("../../../pictures/default/scoresaber-icon.png");
+}
+
+.ppSystemBL {
+    background-image: url("../../../pictures/default/beatleader-icon.png");
+}
+
+.ppValue,
+.ppDelta {
+    display: inline-flex;
+    align-items: center;
+    min-height: 0;
+    font-weight: 700;
+    letter-spacing: 0;
+}
+
+.ppValue {
+    order: 1;
+    flex: 0 1 auto;
+    justify-content: flex-end;
+    padding: 0;
+    background: none;
+    color: rgba(255, 255, 255, 0.96);
+}
+
+.ppDelta {
+    order: 2;
+    flex: 0 0 78px;
+    width: 78px;
+    padding: 0;
+    background: none;
+    font-weight: 800;
+    justify-content: flex-start;
+}
+
+.ppDelta::before {
+    content: "\0394";
+    margin-right: 2px;
+    font-size: 13px;
+    font-weight: 900;
+    opacity: 0.7;
+}
+
+.ppDelta.positive {
+    color: #9df2a9;
+}
+
+.ppDelta.first {
+    color: #b8d9ff;
+}
+
+.ppDelta.first::before {
+    display: none;
+}
+
+.ppDelta.negative {
+    color: #ff9e9e;
+}
+
+.ppDelta.neutral {
+    color: rgba(255, 255, 255, 0.78);
+}
+
+.ppValue:empty,
+.ppDelta:empty {
+    display: none;
+}
+
+#songCard.stop .ppGroup {
+    display: none;
 }
 /* =======================
    = SONG TAGS/ Info end =

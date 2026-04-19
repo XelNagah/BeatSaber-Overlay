@@ -164,6 +164,38 @@
     font-size: 1.7em;
 }
 #accuracy:after { content: "%"; }
+
+.ppGroup {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0;
+    line-height: 1.1em;
+}
+
+#songCard.top-left .ppGroup,
+#songCard.bottom-left .ppGroup {
+    margin-right: 20px;
+    text-align: right;
+}
+
+#songCard.top-right .ppGroup,
+#songCard.bottom-right .ppGroup {
+    margin-left: 20px;
+    text-align: left;
+}
+
+.ppGroup span {
+    font-size: 0.75em;
+}
+
+.ppGroup span:empty {
+    display: none;
+}
+
+#songCard.stop .ppGroup {
+    display: none;
+}
 /* ===============================
    = SONG TAGS / Performance end =
    =============================== */

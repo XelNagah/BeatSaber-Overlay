@@ -89,6 +89,7 @@ export class BSPlus {
 
         this._songCard.songCardData.difficulty = (dataEvent.mapInfoChanged.difficulty === "ExpertPlus") ? "Expert +" : dataEvent.mapInfoChanged.difficulty;
         this._songCard.songCardData.difficultyClass = dataEvent.mapInfoChanged.difficulty;
+        this._songCard.songCardData.characteristic = dataEvent.mapInfoChanged.characteristic ?? "Standard";
 
         this._songCard.songCardData.time = (dataEvent.mapInfoChanged.time !== undefined) ? dataEvent.mapInfoChanged.time * 1000 : 0;
         this._songCard.songCardData.totalTime = dataEvent.mapInfoChanged.duration;

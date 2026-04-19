@@ -4,6 +4,62 @@ export class Template {
     /////////////////////
     // PUBLIC FUNCTION //
     /////////////////////
+    private parseDualMetric(value: string): { ss: string, bl: string } {
+        const ssMatch = value.match(/SS\s+([^|]+)/);
+        const blMatch = value.match(/BL\s+([^|]+)/);
+        return {
+            ss: ssMatch ? ssMatch[1].trim() : "",
+            bl: blMatch ? blMatch[1].trim() : ""
+        };
+    }
+
+    private renderPlayerMetricsMatrix(): void {
+        if ($("#topCountrySS").length === 0)
+            return;
+
+        const playerData = $("#playerData");
+        const topCountry = this.parseDualMetric(String(playerData.data("topCountry") ?? ""));
+        const topWorld = this.parseDualMetric(String(playerData.data("topWorld") ?? ""));
+        const performancePoint = this.parseDualMetric(String(playerData.data("performancePoint") ?? ""));
+
+        $("#topCountrySS").text(topCountry.ss);
+        $("#topCountryBL").text(topCountry.bl);
+        $("#topWorldSS").text(topWorld.ss);
+        $("#topWorldBL").text(topWorld.bl);
+        $("#performancePointSS").text(performancePoint.ss);
+        $("#performancePointBL").text(performancePoint.bl);
+
+        const hasSS = [topCountry.ss, topWorld.ss, performancePoint.ss].some(value => value !== "");
+        const hasBL = [topCountry.bl, topWorld.bl, performancePoint.bl].some(value => value !== "");
+        const visibleRows = [hasSS, hasBL].filter(Boolean).length;
+
+        $("#playerMetricsRowSS").css("display", hasSS ? "" : "none");
+        $("#playerMetricsRowBL").css("display", hasBL ? "" : "none");
+        playerData.css("--player-metrics-lines", String(Math.max(visibleRows + 1, 2)));
+    }
+
+    private applyPlayerCardMetric(key: string, value: string): void {
+        $("#playerData").data(key, value);
+
+        if ($("#topCountrySS").length === 0) {
+            $("#" + key).text(value);
+            return;
+        }
+
+        this.renderPlayerMetricsMatrix();
+    }
+
+    private applyDeltaClass(selector: string, value: string): void {
+        $(selector)
+            .removeClass("positive negative neutral first")
+            .addClass(
+                value.startsWith("NEW ") ? "first" :
+                value.startsWith("+") ? "positive" :
+                value.startsWith("-") ? "negative" :
+                value.startsWith("=") ? "neutral" : ""
+            );
+    }
+
     public loadSkin(moduleName: Globals.E_MODULES, skinName: string, fileName?: string): Promise<unknown> {
         return new Promise(resolve => {
             let skin = (Globals.SKIN_AVAILABLE[moduleName].hasOwnProperty(skinName) ? Globals.SKIN_AVAILABLE[moduleName][skinName] : Globals.SKIN_AVAILABLE[moduleName]["default"]);
@@ -45,7 +101,7 @@ export class Template {
                         case "topCountry":
                         case "topWorld":
                         case "performancePoint":
-                            $("#" + key).text(value);
+                            this.applyPlayerCardMetric(key, value as string);
                             break;
 
                         case "playerFlag":
@@ -71,7 +127,20 @@ export class Template {
                         case "score":
                         case "combo":
                         case "miss":
+                        case "ssPP":
+                        case "blPP":
                             $("#" + key).text(value);
+                            break;
+
+                        case "mapPPDelta":
+                            $("#" + key).text(value);
+                            this.applyDeltaClass("#" + key, value as string);
+                            break;
+
+                        case "ssDelta":
+                        case "blDelta":
+                            $("#" + key).text(value);
+                            this.applyDeltaClass("#" + key, value as string);
                             break;
 
                         case "cover":
