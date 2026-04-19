@@ -90,8 +90,8 @@ export class PlayerCard {
         "BL ", blOk ? beatLeaderData.countryRank : null
     );
 
-    const sspp = ssOk ? scoreSaberData.pp.toFixed(1) : null;
-    const blpp = blOk ? beatLeaderData.pp.toFixed(1) : null;
+    const sspp = ssOk ? scoreSaberData.pp.toFixed(2) : null;
+    const blpp = blOk ? beatLeaderData.pp.toFixed(2) : null;
     if (sspp !== null && blpp !== null)
         this.playerCardData.performancePoint = "SS " + sspp + " | BL " + blpp;
     else if (sspp !== null)

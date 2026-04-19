@@ -69,126 +69,138 @@
 #playerData {
     width: 350px;
     height: 140px;
+    --player-metrics-lines: 3;
+    --player-metrics-header-size: max(15px, calc(22px - (var(--player-metrics-lines) - 3) * 2px));
+    --player-metrics-value-size: max(21px, calc(30px - (var(--player-metrics-lines) - 3) * 3px));
+    --player-metrics-legend-size: max(20px, calc(27px - (var(--player-metrics-lines) - 3) * 2px));
+    --player-metrics-heading-icon-size: max(14px, calc(20px - (var(--player-metrics-lines) - 3) * 2px));
+    --player-metrics-column-gap: max(12px, calc(16px - (var(--player-metrics-lines) - 3) * 1px));
+    --player-metrics-row-gap: max(3px, calc(8px - (var(--player-metrics-lines) - 3) * 2px));
 
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    gap: var(--player-metrics-row-gap);
 
     font-size: 24px;
 }
 
-#playerCard.top-left #playerData,
-#playerCard.bottom-left #playerData {
-    text-align: left;
+#playerCard #playerData > * {
+    margin: 0;
+    width: auto;
 }
 
-#playerCard.top-right #playerData,
-#playerCard.bottom-right #playerData {
-    text-align: right;
+#playerCard.top-left #playerData > *,
+#playerCard.bottom-left #playerData > * {
+    margin-right: auto;
 }
 
-#playerCard.top-left #topCountry::before,
-#playerCard.bottom-left #topCountry::before,
-#playerCard.top-left #topWorld::before,
-#playerCard.bottom-left #topWorld::before {
-    content: "# ";
+#playerCard.top-right #playerData > *,
+#playerCard.bottom-right #playerData > * {
+    margin-left: auto;
+}
 
+.playerMetricsGrid {
+    display: grid;
+    grid-template-columns: 26px 58px 82px 108px;
+    align-items: center;
+    justify-items: center;
+    column-gap: var(--player-metrics-column-gap);
+    width: max-content;
+}
+
+#playerMetricsHeader {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 24px;
+    font-size: var(--player-metrics-header-size);
     font-weight: 800;
+    letter-spacing: 0.02em;
+    opacity: 0.95;
+    margin-top: -1px;
 }
 
-#playerCard.top-left #topWorld::after,
-#playerCard.bottom-left #topWorld::after {
-    content: "";
+.playerMetricsCorner {
+    width: 26px;
+    height: 1px;
+}
 
-    width: 18px;
-    height: 18px;
-    margin-left: 5px;
+.playerMetricsHeading {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    white-space: nowrap;
+}
 
-    background-image: url("../../../pictures/World-icon.svg");
-    background-size: 18px 18px;
+.playerMetricsHeadingHash {
+    line-height: 1;
+}
 
+.playerMetricsHeadingIcon {
+    width: var(--player-metrics-heading-icon-size);
+    height: var(--player-metrics-heading-icon-size);
     display: inline-block;
-}
-
-#playerCard.top-right #topCountry::after,
-#playerCard.bottom-right #topCountry::after,
-#playerCard.top-right #topWorld::after,
-#playerCard.bottom-right #topWorld::after {
-    content: " #";
-
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 24px;
-    font-weight: 800;
-}
-
-#playerCard.top-right #topWorld::before,
-#playerCard.bottom-right #topWorld::before {
-    content: "";
-
-    width: 18px;
-    height: 18px;
-    margin-right: 5px;
-
-    background-image: url("../../../pictures/World-icon.svg");
-    background-size: 18px 18px;
-
-    display: inline-block;
-}
-
-/* "PP" label al inicio — posición izquierda */
-#playerCard.top-left #performancePoint::before,
-#playerCard.bottom-left #performancePoint::before {
-    content: "PP ";
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 24px;
-    font-weight: 800;
-}
-
-/* "PP" label al final — posición derecha */
-#playerCard.top-right #performancePoint::after,
-#playerCard.bottom-right #performancePoint::after {
-    content: " PP";
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 24px;
-    font-weight: 800;
-}
-
-/* Ícono bandera del jugador junto a topCountry — top-left y bottom-left */
-#playerCard.top-left #topCountry::after,
-#playerCard.bottom-left #topCountry::after {
-    content: "";
-
-    width: 18px;
-    height: 18px;
-    margin-left: 5px;
-
-    background-image: var(--country-flag-url, url("../../../pictures/country/FR.svg"));
-    background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-
-    display: inline-block;
+    background-size: contain;
 }
 
-/* Ícono bandera del jugador junto a topCountry — top-right y bottom-right */
-#playerCard.top-right #topCountry::before,
-#playerCard.bottom-right #topCountry::before {
-    content: "";
-
-    width: 18px;
-    height: 18px;
-    margin-right: 5px;
-
+.playerMetricsHeadingIconCountry {
     background-image: var(--country-flag-url, url("../../../pictures/country/FR.svg"));
-    background-size: contain;
+    width: calc(var(--player-metrics-heading-icon-size) + 4px);
+    height: calc(var(--player-metrics-heading-icon-size) + 4px);
+}
+
+.playerMetricsHeadingIconWorld {
+    background-image: url("../../../pictures/World-icon.svg");
+}
+
+.playerMetricsHeadingPP {
+    justify-content: center;
+    margin-left: 10px;
+}
+
+.playerMetricsRow {
+    font-variant-numeric: tabular-nums;
+}
+
+.playerMetricsLegend,
+.playerMetricsValue {
+    line-height: 1;
+    font-size: var(--player-metrics-value-size);
+}
+
+.playerMetricsLegend {
+    display: inline-block;
+    width: var(--player-metrics-legend-size);
+    height: var(--player-metrics-legend-size);
+    font-size: 0;
     background-repeat: no-repeat;
     background-position: center;
-
-    display: inline-block;
+    background-size: contain;
+    justify-self: center;
 }
 
+.playerMetricsLegendSS {
+    background-image: url("../../../pictures/default/scoresaber-icon.png");
+}
+
+.playerMetricsLegendBL {
+    background-image: url("../../../pictures/default/beatleader-icon.png");
+    background-position: center 42%;
+}
+
+.playerMetricsValue {
+    min-width: 0;
+    display: block;
+    text-align: center;
+    font-size: var(--player-metrics-value-size);
+    justify-self: center;
+}
+
+#performancePointSS,
+#performancePointBL {
+    margin-left: 10px;
+}
 
 /* =========================
    = PLAYER TAGS/ Info end =
