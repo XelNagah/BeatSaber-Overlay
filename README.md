@@ -114,11 +114,6 @@ Setup UI flow:
 4. Adjust the available card settings such as skin, position, and scale.
 5. Copy the generated URL and paste it into OBS as a Browser Source.
 
-Setup UI reference:
-
-![Settings button](pictures/readme/settings.png)
-![Copy URL button](pictures/readme/copyLink.png)
-
 OBS notes:
 
 - The easiest beginner setup is: Beat Saber, BeatSaberPlus, the overlay, and OBS all running on the same PC.
