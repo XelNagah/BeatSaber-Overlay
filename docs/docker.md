@@ -1,71 +1,107 @@
-# Correr BeatSaber-Overlay con Docker
+# Run BeatSaber-Overlay with Docker
 
-## Requisitos
+## Who This Is For
 
-- [Docker Desktop](https://www.docker.com/products/docker-desktop/) instalado y corriendo
+Use this guide if you want the easiest local setup.
+
+Typical beginner scenario:
+
+- Beat Saber runs on the same PC as OBS
+- BeatSaberPlus is installed with BSManager
+- You want to open a local setup page, generate the final OBS URL, and paste it into OBS
+
+## Requirements
+
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running
 - Git
+- Beat Saber installed
+- At least one supported plugin installed in Beat Saber
 
-## Pasos
+For most users, **BeatSaberPlus** installed through **BSManager** is the simplest starting point.
+
+## Start the Overlay
 
 ```bash
-# 1. Clonar el repositorio
-git clone <url-del-repo>
+git clone <your-repo-url>
 cd BeatSaber-Overlay
-
-# 2. Buildear y levantar el contenedor
 docker compose up -d --build
 ```
 
-La primera vez descarga la imagen base y compila TypeScript; tarda unos minutos. Las veces siguientes es inmediato.
+The first run downloads the base image and builds the TypeScript output, so it may take a few minutes.
 
-## Configurar en OBS
+## Open the Setup Page
 
-Agregar un **Browser Source** con la URL:
+Once the container is running, open:
 
-```
-http://localhost:8080/index.html?ip=<IP_PC_BEATSABER>&pid=<PLAYER_ID>
-```
+- [http://localhost:8080/index.html](http://localhost:8080/index.html)
 
-| Parámetro | Descripción | Ejemplo |
-|-----------|-------------|---------|
-| `ip` | IP de la PC donde corre Beat Saber | `192.168.1.100` |
-| `pid` | Player ID de ScoreSaber | `76561198023909381` |
-| `pcsk` | Skin de la Player Card | `default` |
-| `scsk` | Skin de la Song Card | `default`, `freemium`, `reselim`, `dietah` |
+From there:
 
-Si el overlay corre en la **misma PC** que Beat Saber, usá `ip=localhost`.
+1. Click the settings button.
+2. Enter your ScoreSaber profile URL or player ID if you want the **Player Card** to show your profile and rank.
+3. Adjust the card settings you want.
+4. Copy the generated URL.
 
-Parámetros completos: ver `js/parameters.ts`.
+## Add It to OBS
 
-## Comandos útiles
+In OBS:
+
+1. Add a new **Browser Source** to your scene.
+2. Paste the generated URL from the setup page.
+3. Resize and position it like any other browser-based overlay.
+
+If Beat Saber, the mod, the overlay, and OBS are all running on the same PC, the default setup values usually work without extra changes.
+
+## Verify It Works
+
+Quick checks:
+
+- Setup page loads: [http://localhost:8080/index.html](http://localhost:8080/index.html)
+- ScoreSaber proxy responds:
+  - [http://localhost:8080/php/scoreSaberProxy.php?playerId=76561198023909381](http://localhost:8080/php/scoreSaberProxy.php?playerId=76561198023909381)
+
+What to expect:
+
+- The overlay page can open even if Beat Saber is closed
+- Live song/game data only appears when Beat Saber is running and a supported plugin is active
+- The **Song Card** can still reflect live gameplay without a ScoreSaber profile
+- The **Player Card** needs your ScoreSaber profile URL or ID to show your player info
+
+## Useful Commands
 
 ```bash
-# Ver logs en tiempo real
+# View logs
 docker compose logs -f
 
-# Detener el contenedor
+# Stop the container
 docker compose down
 
-# Rebuild tras cambios en el código
+# Rebuild after code changes
 docker compose up -d --build
 ```
 
-## Verificar que funciona
+## Troubleshooting
 
-- Overlay vacío (sin Beat Saber): `http://localhost:8080/index.html`
-- Proxy ScoreSaber: `http://localhost:8080/php/scoreSaberProxy.php?playerId=76561198023909381`
-  → debe devolver JSON con datos del jugador
+**The page opens, but no live data appears**
 
-## Solución de problemas
+- Make sure Beat Saber is running
+- Make sure one supported plugin is installed and enabled
+- If you want a concrete reference setup, start with BeatSaberPlus on the same PC
 
-**El proxy PHP devuelve error de conexión**
-: El servidor no puede acceder a las APIs externas. Verificar conexión a internet desde el contenedor:
+**The Player Card is empty**
+
+- Open the setup page and enter your ScoreSaber profile URL or player ID
+
+**The PHP proxy fails**
+
+- The container may not be able to reach external APIs
+- Test network access from the container:
+
 ```bash
 docker compose exec overlay curl -s https://scoresaber.com/api/player/76561198023909381/basic
 ```
 
-**Beat Saber no conecta al overlay**
-: Si Beat Saber corre en otra PC, asegurarse que el firewall permite el puerto 8080 y usar la IP correcta en el parámetro `ip=`.
+**Beat Saber runs on another PC**
 
-**Cambios en el código no se reflejan**
-: Siempre hacer `docker compose up -d --build` después de modificar archivos TypeScript.
+- Open the setup page and change the connection target to the PC running Beat Saber instead of leaving the local default
+- Make sure that PC allows the required local network traffic
