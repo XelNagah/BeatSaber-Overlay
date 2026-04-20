@@ -43,6 +43,24 @@ This fork is intended to preserve usability and share improvements with the comm
 - Beat Saber must be running for live overlay data to appear
 - OBS or another browser-source-capable streaming app is needed to show the overlay on stream
 
+## Recommended Beginner Path
+
+If you just want the easiest working setup, use this combination:
+
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+- [Git](https://git-scm.com/downloads)
+- Beat Saber installed on the same PC as OBS
+- **BeatSaberPlus** installed with [BSManager](https://www.bsmanager.io/)
+
+That is the most beginner-friendly path for this repository.
+
+Typical flow:
+
+1. Install Docker Desktop and Git.
+2. Install **BeatSaberPlus** with **BSManager**.
+3. Follow the Docker guide in [docs/docker.md](docs/docker.md).
+4. Open the local setup page, copy the generated URL, and paste it into OBS as a Browser Source.
+
 ## How It Works
 
 The overlay runs in a browser and is usually added to OBS or similar streaming software as a Browser Source.
@@ -117,6 +135,8 @@ Choose one local hosting method:
 
 For most users, Docker is the easiest way to get a working local instance.
 
+The Docker guide includes the exact copy/paste commands and explains how to open a command-line window before running them.
+
 See [docs/docker.md](docs/docker.md) for the full setup.
 
 Docker setup page:
@@ -126,6 +146,8 @@ Docker setup page:
 ### Alternative: Apache + PHP
 
 If you prefer running it with a local web server instead of Docker, use the Apache + PHP setup guide:
+
+That guide also includes the exact commands to copy/paste and explains the local Apache/PHP requirements first.
 
 [docs/php.md](docs/php.md)
 

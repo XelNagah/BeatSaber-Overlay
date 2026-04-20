@@ -13,22 +13,52 @@ If you just want the easiest path, use the Docker guide instead:
 - **Apache 2.4+** with `mod_expires`, `mod_headers`, and `mod_rewrite`
 - **PHP 8.0+** with `allow_url_fopen = On`
 - **Node.js 18+** and **npm** to build the TypeScript files
-- Git
+- [Git](https://git-scm.com/downloads) installed
 - Beat Saber installed
 - At least one supported plugin installed in Beat Saber
 
 For most users, **BeatSaberPlus** installed through **BSManager** is the simplest plugin path.
 
+## Before You Start
+
+If you already did the requirements above, the most common beginner setup for this guide looks like this:
+
+- Apache and PHP are already installed and working on your PC
+- Node.js and npm are installed
+- Git is installed
+- Beat Saber is installed
+- **BeatSaberPlus** is installed with **BSManager**
+- Beat Saber, this overlay, and OBS will run on the same PC
+
+If you do not already have Apache and PHP working locally, the Docker guide is usually easier:
+
+- [docs/docker.md](docs/docker.md)
+
 ## Install and Build
 
+Open a command-line window first:
+
+- On Windows, you can open **PowerShell**, **Windows Terminal**, or **Command Prompt**
+- Open it in any folder where you want the project folder to be created, for example `Desktop` or `Documents`
+- Then copy and paste the commands below into that window and press `Enter`
+
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/XelNagah/BeatSaber-Overlay.git
 cd BeatSaber-Overlay
 npm install
 npm run build
 ```
 
+What those commands do:
+
+- `git clone ...` downloads this repository to a new `BeatSaber-Overlay` folder
+- `cd BeatSaber-Overlay` moves the command line into that folder
+- `npm install` installs the build dependencies used by this project
+- `npm run build` generates the `.js` files used by the overlay
+
 That generates the `.js` files in `js/` from the TypeScript sources.
+
+If everything finishes without errors, keep that project folder on your PC. You will point Apache to it in the next steps.
 
 ## Configure Apache
 
@@ -98,6 +128,8 @@ From there:
 2. Enter your ScoreSaber profile URL or player ID if you want the **Player Card** to show your profile and rank.
 3. Adjust the card settings you want.
 4. Copy the generated URL.
+
+If you followed the common beginner setup above, the default connection settings usually work without changes.
 
 ## Add It to OBS
 
