@@ -1,0 +1,1 @@
+{"root":["./js/bsplus.ts","./js/http_sira_status.ts","./js/beatleader.ts","./js/beatsaver.ts","./js/datapuller.ts","./js/global.ts","./js/globals.d.ts","./js/init.ts","./js/parameters.ts","./js/playercard.ts","./js/plugins.ts","./js/ppcalculator.ts","./js/scoresaber.ts","./js/setup.ts","./js/songcard.ts","./js/template.ts","./js/tools.ts","./js/ui.ts"],"version":"6.0.2"}

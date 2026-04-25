@@ -335,8 +335,8 @@
 
 .ppDelta {
     order: 2;
-    flex: 0 0 78px;
-    width: 78px;
+    flex: 0 0 auto;
+    min-width: 78px;
     padding: 0;
     background: none;
     font-weight: 800;

@@ -353,7 +353,7 @@ export class SongCard {
                 else
                     this.songCardData.blDelta = "";
             } else if (this.songCardData.started && this._ssMapMaxPP > 0) {
-                const pp = this._ssMapMaxPP * PPCalculator.ssMultiplier(acc01);
+                const pp = PPCalculator.ssPP(acc01, this._ssMapMaxPP);
                 this.songCardData.ssPP = this.formatPp(pp, 2);
 
                 if (this._playerBestSSPP > 0) {

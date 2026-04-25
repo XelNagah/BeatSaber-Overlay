@@ -39,6 +39,10 @@ export class PPCalculator {
         [1.0, 5.367394282890631]
     ];
 
+    private static get SS_CURVE_MAX(): number {
+        return this.SS_CURVE[this.SS_CURVE.length - 1][1];
+    }
+
     // BeatLeader uses a steeper high-accuracy curve than ScoreSaber.
     private static readonly BL_ACC_CURVE: [number, number][] = [
         [0.0, 0.0],
@@ -107,6 +111,15 @@ export class PPCalculator {
 
     public static ssMultiplier(acc: number): number {
         return this.interpolate(acc, this.SS_CURVE);
+    }
+
+    public static ssPP(acc: number, maxPP: number): number {
+        if (maxPP <= 0)
+            return 0;
+
+        // ScoreSaber maxPP is already the full-curve 100% value, so normalize
+        // it back to the base coefficient before applying the live multiplier.
+        return (maxPP / this.SS_CURVE_MAX) * this.ssMultiplier(acc);
     }
 
     public static blAccMultiplier(acc: number): number {
