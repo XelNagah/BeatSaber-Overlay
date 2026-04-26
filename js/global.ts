@@ -113,6 +113,7 @@ export namespace Globals {
         accRating: number;
         passRating: number;
         techRating: number;
+        stars?: number;
     }
     export interface I_beatLeaderPlayerScoreJSON {
         error?: string;
@@ -225,6 +226,8 @@ export namespace Globals {
         ssDelta: string;                // Delta versus best ScoreSaber PP on this map
         blDelta: string;                // Delta versus best BeatLeader PP on this map
         mapPPDelta: string;             // Legacy alias for the ScoreSaber delta on this map
+        ssStars: number;                // Star rating ScoreSaber (0 if unavailable)
+        blStars: number;                // Star rating BeatLeader (0 if unavailable)
     }
 
     /////////////////////////////

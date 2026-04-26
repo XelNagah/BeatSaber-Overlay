@@ -2,6 +2,11 @@
    = SONG TAGS start =
    =================== */
 #songCard {
+    --pp-group-width: 202px;
+    --pp-stars-width: 44px;
+    --pp-value-width: 66px;
+    --pp-delta-width: 64px;
+
     width: 650px;
     height: 140px;
     margin: 3% 3%;
@@ -93,6 +98,7 @@
 }
 
 #songNameSubName {
+    box-sizing: border-box;
     display: flex;
     line-height: 30px;
 }
@@ -100,11 +106,13 @@
 #songCard.top-left #songNameSubName,
 #songCard.bottom-left #songNameSubName {
     flex-direction: row;
+    padding-right: calc(var(--pp-group-width) + 10px);
 }
 
 #songCard.top-right #songNameSubName,
 #songCard.bottom-right #songNameSubName {
     flex-direction: row-reverse;
+    padding-left: calc(var(--pp-group-width) + 10px);
 }
 
 #title {
@@ -124,6 +132,7 @@
 }
 
 #songAuthorMapper {
+    box-sizing: border-box;
     display: flex;
 
     font-size: 20px;
@@ -132,10 +141,12 @@
 
 #songCard.top-left #songAuthorMapper, #songCard.bottom-left #songAuthorMapper {
     flex-direction: row;
+    padding-right: calc(var(--pp-group-width) + 10px);
 }
 
 #songCard.top-right #songAuthorMapper, #songCard.bottom-right #songAuthorMapper {
     flex-direction: row-reverse;
+    padding-left: calc(var(--pp-group-width) + 10px);
 }
 
 #songCard.top-left #mapper, #songCard.bottom-left #mapper {
@@ -157,6 +168,7 @@
 #songDataInfo {
     margin-top: 10px;
     margin-bottom: -10px;
+    box-sizing: border-box;
 
     display: flex;
 
@@ -165,10 +177,12 @@
 
 #songCard.top-left #songDataInfo, #songCard.bottom-left #songDataInfo {
     flex-direction: row;
+    padding-right: calc(var(--pp-group-width) + 10px);
 }
 
 #songCard.top-right #songDataInfo, #songCard.bottom-right #songDataInfo {
     flex-direction: row-reverse;
+    padding-left: calc(var(--pp-group-width) + 10px);
 }
 
 #difficulty {
@@ -259,6 +273,7 @@
     top: 67px;
     display: grid;
     gap: 4px;
+    width: var(--pp-group-width);
     padding: 0;
     font-size: 14px;
     line-height: 15px;
@@ -280,7 +295,8 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 3px;
+    gap: 5px;
+    width: 100%;
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
 }
@@ -326,21 +342,24 @@
 
 .ppValue {
     order: 1;
-    flex: 0 1 auto;
+    flex: 0 0 var(--pp-value-width);
+    width: var(--pp-value-width);
     justify-content: flex-end;
     padding: 0;
     background: none;
     color: rgba(255, 255, 255, 0.96);
+    overflow: hidden;
 }
 
 .ppDelta {
     order: 2;
-    flex: 0 0 auto;
-    min-width: 78px;
-    padding: 0;
+    flex: 0 0 var(--pp-delta-width);
+    width: var(--pp-delta-width);
+    padding: 0 2px 0 0;
     background: none;
     font-weight: 800;
     justify-content: flex-start;
+    overflow: hidden;
 }
 
 .ppDelta::before {
@@ -371,8 +390,25 @@
     color: rgba(255, 255, 255, 0.78);
 }
 
+.starsValue {
+    order: 0;
+    display: inline-flex;
+    align-items: center;
+    flex: 0 0 var(--pp-stars-width);
+    width: var(--pp-stars-width);
+    justify-content: flex-end;
+    padding-right: 0;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0;
+    white-space: nowrap;
+    color: rgba(255, 215, 0, 0.90);
+    overflow: hidden;
+}
+
 .ppValue:empty,
-.ppDelta:empty {
+.ppDelta:empty,
+.starsValue:empty {
     display: none;
 }
 

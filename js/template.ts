@@ -53,7 +53,7 @@ export class Template {
         $(selector)
             .removeClass("positive negative neutral first")
             .addClass(
-                value.startsWith("NEW ") ? "first" :
+                value.startsWith("N") ? "first" :
                 value.startsWith("+") ? "positive" :
                 value.startsWith("-") ? "negative" :
                 value.startsWith("=") ? "neutral" : ""
@@ -130,6 +130,16 @@ export class Template {
                         case "blPP":
                             $("#" + key).text(value);
                             break;
+
+                        case "ssStars":
+                        case "blStars": {
+                            const stars = value as number;
+                            if (stars > 0)
+                                $("#" + key).text("\u2605" + stars.toFixed(2)).css("display", "");
+                            else
+                                $("#" + key).text("").css("display", "none");
+                            break;
+                        }
 
                         case "accuracy": {
                             const rounded = typeof value === "number"

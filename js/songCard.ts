@@ -23,9 +23,11 @@ export class SongCard {
     private _mapToken = "";
     private _lastPid = "";
     private _ssMapMaxPP = 0;
+    private _ssStars = 0;
     private _blAccRating = 0;
     private _blPassRating = 0;
     private _blTechRating = 0;
+    private _blStars = 0;
     private _playerBestSSPP = 0;
     private _playerBestBLPP = 0;
 
@@ -87,7 +89,9 @@ export class SongCard {
         blPP: "",
         ssDelta: "",
         blDelta: "",
-        mapPPDelta: ""
+        mapPPDelta: "",
+        ssStars: 0,
+        blStars: 0
     };
 
     constructor() {
@@ -205,27 +209,38 @@ export class SongCard {
             return Math.round(value) + "pp";
 
         const rounded = Math.round(value * (10 ** decimals)) / (10 ** decimals);
-        return rounded.toFixed(decimals).replace(/\.0+$/, "") + "pp";
+        return rounded.toFixed(decimals) + "pp";
     }
 
     private formatDelta(value: number, decimals = 0): string {
         if (decimals <= 0) {
             const rounded = Math.round(value);
             const prefix = rounded > 0 ? "+" : rounded === 0 ? "=" : "";
-            return prefix + rounded + "pp";
+            return prefix + rounded;
         }
 
         const factor = 10 ** decimals;
         const rounded = Math.round(value * factor) / factor;
         const prefix = rounded > 0 ? "+" : rounded === 0 ? "=" : "";
-        return prefix + rounded.toFixed(decimals).replace(/\.0+$/, "") + "pp";
+        return prefix + rounded.toFixed(decimals);
+    }
+
+    private formatNewDelta(value: number, decimals = 0): string {
+        if (decimals <= 0)
+            return "N" + Math.round(value);
+
+        const factor = 10 ** decimals;
+        const rounded = Math.round(value * factor) / factor;
+        return "N" + rounded.toFixed(decimals);
     }
 
     private clearPPState(clearMetadata = false): void {
         this._ssMapMaxPP = 0;
+        this._ssStars = 0;
         this._blAccRating = 0;
         this._blPassRating = 0;
         this._blTechRating = 0;
+        this._blStars = 0;
         this._playerBestSSPP = 0;
         this._playerBestBLPP = 0;
 
@@ -234,6 +249,8 @@ export class SongCard {
         this.songCardData.ssDelta = "";
         this.songCardData.blDelta = "";
         this.songCardData.mapPPDelta = "";
+        this.songCardData.ssStars = 0;
+        this.songCardData.blStars = 0;
 
         if (clearMetadata) {
             this.songCardData.ranked = false;
@@ -295,13 +312,16 @@ export class SongCard {
             this.songCardData.bsrKey = "NotFound";
         }
 
-        if (ssResult.status === "fulfilled" && ssResult.value.error === undefined)
+        if (ssResult.status === "fulfilled" && ssResult.value.error === undefined) {
             this._ssMapMaxPP = ssResult.value.maxPP ?? 0;
+            this._ssStars = ssResult.value.stars ?? 0;
+        }
 
         if (blResult.status === "fulfilled" && blResult.value.error === undefined) {
             this._blAccRating = blResult.value.accRating ?? 0;
             this._blPassRating = blResult.value.passRating ?? 0;
             this._blTechRating = blResult.value.techRating ?? 0;
+            this._blStars = blResult.value.stars ?? 0;
         }
 
         if (scoreResult.status === "fulfilled" && scoreResult.value.error === undefined)
@@ -360,7 +380,7 @@ export class SongCard {
                     this.songCardData.ssDelta = this.formatDelta(pp - this._playerBestSSPP, 2);
                     this.songCardData.mapPPDelta = this.songCardData.ssDelta;
                 } else {
-                    this.songCardData.ssDelta = "NEW " + this.formatPp(pp, 2);
+                    this.songCardData.ssDelta = this.formatNewDelta(pp, 2);
                     this.songCardData.mapPPDelta = this.songCardData.ssDelta;
                 }
             } else {
@@ -378,11 +398,14 @@ export class SongCard {
                 if (this._playerBestBLPP > 0)
                     this.songCardData.blDelta = this.formatDelta(pp - this._playerBestBLPP, 2);
                 else
-                    this.songCardData.blDelta = "NEW " + this.formatPp(pp, 2);
+                    this.songCardData.blDelta = this.formatNewDelta(pp, 2);
             } else {
                 this.songCardData.blPP = "";
                 this.songCardData.blDelta = "";
             }
+
+            this.songCardData.ssStars = this._ssStars > 0 ? this._ssStars : 0;
+            this.songCardData.blStars = this._blStars > 0 ? this._blStars : 0;
 
             this._template.refreshUI(this.songCardData, Globals.E_MODULES.SONGCARD);
             this._template.moduleScale(Globals.E_MODULES.SONGCARD, this.songCardData.position, this.songCardData.scale);

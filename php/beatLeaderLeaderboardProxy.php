@@ -185,7 +185,8 @@ if ($matched === null) {
 $output = [
     "accRating" => isset($matched['accRating']) && is_numeric($matched['accRating']) ? (float)$matched['accRating'] : 0.0,
     "passRating" => isset($matched['passRating']) && is_numeric($matched['passRating']) ? (float)$matched['passRating'] : 0.0,
-    "techRating" => isset($matched['techRating']) && is_numeric($matched['techRating']) ? (float)$matched['techRating'] : 0.0
+    "techRating" => isset($matched['techRating']) && is_numeric($matched['techRating']) ? (float)$matched['techRating'] : 0.0,
+    "stars" => isset($matched['stars']) && is_numeric($matched['stars']) ? (float)$matched['stars'] : 0.0
 ];
 
 if ($output["accRating"] === 0.0 && $output["passRating"] === 0.0 && $output["techRating"] === 0.0) {
