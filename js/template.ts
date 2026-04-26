@@ -122,7 +122,6 @@ export class Template {
                         case "bpm":
                         case "timeToLetters":
                         case "totalTimeToLetters":
-                        case "accuracy":
                         case "accuracyToLetters":
                         case "score":
                         case "combo":
@@ -131,6 +130,14 @@ export class Template {
                         case "blPP":
                             $("#" + key).text(value);
                             break;
+
+                        case "accuracy": {
+                            const rounded = typeof value === "number"
+                                ? Math.round(value * 10) / 10
+                                : value;
+                            $("#" + key).text(String(rounded));
+                            break;
+                        }
 
                         case "mapPPDelta":
                             $("#" + key).text(value);

@@ -104,7 +104,7 @@ export class BSPlus {
     }
 
     private scoreParser(dataEvent: Globals.I_bsPlusObject): void {
-        this._songCard.songCardData.accuracy = +((dataEvent.scoreEvent.accuracy * 100).toFixed(1));
+        this._songCard.songCardData.accuracy = dataEvent.scoreEvent.accuracy * 100;
         this._songCard.songCardData.score = dataEvent.scoreEvent.score.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         this._songCard.songCardData.combo = dataEvent.scoreEvent.combo;
         this._songCard.songCardData.miss = dataEvent.scoreEvent.missCount;

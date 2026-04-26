@@ -161,7 +161,7 @@ export class DataPuller {
     }
 
     private scoreParser(dataEvent: Globals.I_dataPullerLiveDataObject): void {
-        this._songCard.songCardData.accuracy = +((dataEvent.Accuracy).toFixed(1));
+        this._songCard.songCardData.accuracy = dataEvent.Accuracy;
         this._songCard.songCardData.score = dataEvent.Score.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         this._songCard.songCardData.combo = dataEvent.Combo;
         this._songCard.songCardData.miss = dataEvent.Misses;

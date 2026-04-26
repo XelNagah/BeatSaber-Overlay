@@ -145,9 +145,11 @@ export class HTTP_sira_Status {
 
     private scoreParser(dataEvent: Globals.I_http_Sira_StatusObject): void {
         if (dataEvent.status.performance?.relativeScore !== undefined) // SiraStatus
-            this._songCard.songCardData.accuracy = +((dataEvent.status.performance.relativeScore * 100).toFixed(1));
+            this._songCard.songCardData.accuracy = dataEvent.status.performance.relativeScore * 100;
         else // HTTPStatus
-            this._songCard.songCardData.accuracy = +(((<number>dataEvent.status.performance?.score * 100) / <number>dataEvent.status.performance?.currentMaxScore).toFixed(1));
+            this._songCard.songCardData.accuracy = (<number>dataEvent.status.performance?.currentMaxScore) > 0
+                ? ((<number>dataEvent.status.performance?.score * 100) / <number>dataEvent.status.performance?.currentMaxScore)
+                : 0;
 
         this._songCard.songCardData.score = (<number>dataEvent.status.performance?.score).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         this._songCard.songCardData.combo = <number>dataEvent.status.performance?.combo;
