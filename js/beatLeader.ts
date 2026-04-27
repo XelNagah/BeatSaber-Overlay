@@ -8,7 +8,7 @@ export class BeatLeader {
         this._tools = new Tools();
     }
 
-    public async getPlayerInfo(playerId: string): Promise<any> {
+    public async getPlayerInfo(playerId: string): Promise<Globals.I_beatLeaderPlayerJSON> {
         return await this._tools.getMethod(`./php/beatLeaderProxy.php/?playerId=${encodeURIComponent(playerId)}`);
     }
 

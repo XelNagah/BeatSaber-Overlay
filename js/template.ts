@@ -35,7 +35,7 @@ export class Template {
 
         $("#playerMetricsRowSS").css("display", hasSS ? "" : "none");
         $("#playerMetricsRowBL").css("display", hasBL ? "" : "none");
-        playerData.css("--player-metrics-lines", String(Math.max(visibleRows + 1, 2)));
+        playerData.css("--player-metrics-lines", String(Math.max(visibleRows + 2, 3)));
     }
 
     private applyPlayerCardMetric(key: string, value: string): void {
@@ -98,6 +98,10 @@ export class Template {
             switch (moduleName) {
                 case Globals.E_MODULES.PLAYERCARD:
                     switch (key) {
+                        case "playerName":
+                            $("#" + key).text(value);
+                            break;
+
                         case "topCountry":
                         case "topWorld":
                         case "performancePoint":
@@ -113,6 +117,12 @@ export class Template {
 
                 case Globals.E_MODULES.SONGCARD:
                     switch (key) {
+                        case "playerName":
+                            $("#songCardPlayerName")
+                                .text(value)
+                                .css("display", String(value) !== "" ? "" : "none");
+                            break;
+
                         case "title":
                         case "subTitle":
                         case "mapper":

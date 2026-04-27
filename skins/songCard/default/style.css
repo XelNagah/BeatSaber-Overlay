@@ -97,6 +97,36 @@
     white-space: nowrap;
 }
 
+#songCardPlayerName {
+    position: absolute;
+    top: 3px;
+    z-index: 2;
+    width: calc(var(--pp-group-width) - 4px);
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    color: rgba(255, 255, 255, 0.96);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+    pointer-events: none;
+}
+
+#songCard.top-left #songCardPlayerName,
+#songCard.bottom-left #songCardPlayerName {
+    right: 0;
+    text-align: right;
+}
+
+#songCard.top-right #songCardPlayerName,
+#songCard.bottom-right #songCardPlayerName {
+    left: 0;
+    text-align: left;
+}
+
 #songNameSubName {
     box-sizing: border-box;
     display: flex;

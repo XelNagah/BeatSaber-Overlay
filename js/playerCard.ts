@@ -30,6 +30,7 @@ export class PlayerCard {
         scale: 1.0,
 
         playerId: "0",
+        playerName: "",
         avatar: "./pictures/default/notFound.jpg",
         playerFlag: "./pictures/country/FR.svg",
         topWorld: "0",
@@ -47,7 +48,6 @@ export class PlayerCard {
     //////////////////////
     private async updatePlayerInfo(): Promise<void> {
     if (this.playerCardData.disabled
-        || !this.playerCardData.display
         || !this.playerCardData.needUpdate
         || this.playerCardData.playerId === "0")
         return;
@@ -64,6 +64,13 @@ export class PlayerCard {
 
     if (!ssOk && !blOk)
         return;
+
+    this.playerCardData.playerName =
+        ssOk && scoreSaberData.name !== undefined && scoreSaberData.name !== ""
+            ? scoreSaberData.name
+            : blOk && beatLeaderData.playerName !== undefined
+                ? beatLeaderData.playerName
+                : "";
 
     this.playerCardData.avatar =
         ssOk ? scoreSaberData.profilePicture :

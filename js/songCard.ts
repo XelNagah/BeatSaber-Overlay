@@ -54,6 +54,7 @@ export class SongCard {
         subTitle: "Subtitle",
         mapper: "Yasu",
         author: "Camellia",
+        playerName: "",
 
         bsrKey: "2319e",
         hashMap: "280378d7157542f5b160e8a464f0dcfdc3a1de56",
@@ -343,13 +344,15 @@ export class SongCard {
     }
 
     public refreshSongCard(): void {
-        const currentPid = PlayerCard.Instance.playerCardData.playerId;
+        const currentPlayerCard = PlayerCard.Instance.playerCardData;
+        const currentPid = currentPlayerCard.playerId;
         if (currentPid !== this._lastPid) {
             this._lastPid = currentPid;
             this.songCardData.needUpdate = true;
         }
 
         this.updateSongInfo().then(() => {
+            this.songCardData.playerName = currentPlayerCard.playerName ?? "";
             this.songCardData.accuracyToLetters = this.accuracyToLetter();
             this.songCardData.accuracyToLetterClass = this.accuracyToLetterClass();
 

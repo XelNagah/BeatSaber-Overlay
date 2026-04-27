@@ -70,12 +70,12 @@
     width: 350px;
     height: 140px;
     --player-metrics-lines: 3;
-    --player-metrics-header-size: max(15px, calc(22px - (var(--player-metrics-lines) - 3) * 2px));
-    --player-metrics-value-size: max(21px, calc(30px - (var(--player-metrics-lines) - 3) * 3px));
-    --player-metrics-legend-size: max(20px, calc(27px - (var(--player-metrics-lines) - 3) * 2px));
-    --player-metrics-heading-icon-size: max(14px, calc(20px - (var(--player-metrics-lines) - 3) * 2px));
-    --player-metrics-column-gap: max(12px, calc(16px - (var(--player-metrics-lines) - 3) * 1px));
-    --player-metrics-row-gap: max(3px, calc(8px - (var(--player-metrics-lines) - 3) * 2px));
+    --player-metrics-header-size: max(13px, calc(20px - (var(--player-metrics-lines) - 3) * 2px));
+    --player-metrics-value-size: max(18px, calc(27px - (var(--player-metrics-lines) - 3) * 3px));
+    --player-metrics-legend-size: max(18px, calc(24px - (var(--player-metrics-lines) - 3) * 2px));
+    --player-metrics-heading-icon-size: max(12px, calc(18px - (var(--player-metrics-lines) - 3) * 2px));
+    --player-metrics-column-gap: max(8px, calc(12px - (var(--player-metrics-lines) - 3) * 1px));
+    --player-metrics-row-gap: max(2px, calc(6px - (var(--player-metrics-lines) - 3) * 1px));
 
     display: flex;
     flex-direction: column;
@@ -100,9 +100,24 @@
     margin-left: auto;
 }
 
+#playerCard #playerName {
+    width: 100%;
+    margin: 0;
+    align-self: stretch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    color: rgba(255, 255, 255, 0.98);
+}
+
 .playerMetricsGrid {
     display: grid;
-    grid-template-columns: 26px 58px 82px 108px;
+    grid-template-columns: 24px 50px 72px 98px;
     align-items: center;
     justify-items: center;
     column-gap: var(--player-metrics-column-gap);
@@ -156,7 +171,7 @@
 
 .playerMetricsHeadingPP {
     justify-content: center;
-    margin-left: 10px;
+    margin-left: 4px;
 }
 
 .playerMetricsRow {
@@ -199,7 +214,7 @@
 
 #performancePointSS,
 #performancePointBL {
-    margin-left: 10px;
+    margin-left: 4px;
 }
 
 /* =========================

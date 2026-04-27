@@ -115,6 +115,15 @@ export namespace Globals {
         techRating: number;
         stars?: number;
     }
+    export interface I_beatLeaderPlayerJSON {
+        errorMessage?: string;
+        playerName: string;
+        profilePicture: string;
+        country: string;
+        countryRank: number;
+        rank: number;
+        pp: number;
+    }
     export interface I_beatLeaderPlayerScoreJSON {
         error?: string;
         pp: number;
@@ -160,6 +169,7 @@ export namespace Globals {
         scale: number;              // Scale of Player Card
 
         playerId: string;           // ScoreSaber ID of the player
+        playerName: string;         // Player nickname
         avatar: string;             // Avatar of the player
         playerFlag: string;         // Country flag of the player (./pictures/country/COUNTRYCODE.svg)
         topWorld: string;           // World rank of the player
@@ -190,6 +200,7 @@ export namespace Globals {
         subTitle: string;               // Subtitle of the actual song
         mapper: string;                 // Mapper of the actual song
         author: string;                 // Author of the actual song
+        playerName: string;             // Player nickname
 
         bsrKey: string;                 // BSR key of the actual song
         hashMap: string;                // Hash ID of the actual song
