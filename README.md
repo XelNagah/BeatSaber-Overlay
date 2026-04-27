@@ -32,6 +32,8 @@ This fork is intended to preserve usability and share improvements with the comm
 - Apache + PHP setup documentation for non-Docker environments
 - BeatLeader support in the Player Card
 - Improved Player Card PP/rank presentation
+- Song Card SS/BL stars and PP row layout improvements
+- Player nickname display in the Player Card and Song Card
 - TypeScript build configuration cleanup for easier local builds
 
 ## Runtime Requirements
@@ -110,7 +112,7 @@ Setup UI flow:
 
 1. Open the overlay page in your browser.
 2. Click the settings button to open the setup panel.
-3. Enter your ScoreSaber profile URL or player ID if you want the **Player Card** to show your player profile, rank, and PP.
+3. Enter your ScoreSaber profile URL or player ID if you want the overlay to resolve your player profile data, including nickname and profile stats used by the **Player Card** and **Song Card**.
 4. Adjust the available card settings such as skin, position, and scale.
 5. Copy the generated URL and paste it into OBS as a Browser Source.
 

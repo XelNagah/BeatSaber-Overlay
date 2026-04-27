@@ -155,6 +155,7 @@ What to expect:
 - Live song/game data only appears when Beat Saber is running and a supported plugin is active
 - The **Song Card** can still reflect live gameplay without a ScoreSaber profile
 - The **Player Card** needs your ScoreSaber profile URL or ID to show your player info
+- Player nickname and profile-based details in both cards depend on having that profile URL or player ID configured
 
 ## Troubleshooting
 
