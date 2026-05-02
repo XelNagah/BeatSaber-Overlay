@@ -109,7 +109,9 @@ function bl_collect_candidates(mixed $data, array &$results): void {
         }
     }
 
-    if ($has_ratings)
+    $is_ranked = !array_key_exists('status', $data) || (int)$data['status'] === 3;
+
+    if ($has_ratings && $is_ranked)
         $results[] = $data;
 
     foreach ($data as $value) {
