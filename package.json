@@ -1,6 +1,6 @@
 {
     "name": "BeatSaber-Overlay",
-    "version": "2.2.0a",
+    "version": "2.4.1-xelnagah",
     "description": "Beat Saber Overlay for BSPlus, HTTPStatus, HTTPSiraStatus and DataPuller",
     "main": "init.js",
     "scripts": {
