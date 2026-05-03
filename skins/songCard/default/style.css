@@ -131,6 +131,7 @@
     box-sizing: border-box;
     display: flex;
     line-height: 30px;
+    min-width: 0;
 }
 
 #songCard.top-left #songNameSubName,
@@ -147,6 +148,8 @@
 
 #title {
     font-size: 30px;
+    flex: 0 1 auto;
+    min-width: 0;
 }
 
 #songCard.top-left #title, #songCard.bottom-left #title {
@@ -159,6 +162,20 @@
 
 #subTitle {
     font-size: 23px;
+    flex: 0 1000 auto;
+    min-width: 0;
+}
+
+#subTitle:empty { display: none; }
+
+#songCard.top-left #songNameSubName:has(#subTitle:empty) #title,
+#songCard.bottom-left #songNameSubName:has(#subTitle:empty) #title {
+    margin-right: 0;
+}
+
+#songCard.top-right #songNameSubName:has(#subTitle:empty) #title,
+#songCard.bottom-right #songNameSubName:has(#subTitle:empty) #title {
+    margin-left: 0;
 }
 
 #songAuthorMapper {
