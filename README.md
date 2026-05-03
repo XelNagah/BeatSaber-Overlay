@@ -28,8 +28,8 @@ This fork is intended to preserve usability and share improvements with the comm
 
 ## What This Fork Adds
 
-- Docker support for a quick local/self-hosted setup
-- Apache + PHP setup documentation for non-Docker environments
+- Simple PHP built-in server setup as the recommended local path (no Apache, no Docker required)
+- Docker setup retained as an alternative for containerized environments
 - BeatLeader support in the Player Card
 - Improved Player Card PP/rank presentation
 - Song Card SS/BL stars and PP row layout improvements
@@ -49,7 +49,8 @@ This fork is intended to preserve usability and share improvements with the comm
 
 If you just want the easiest working setup, use this combination:
 
-- [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+- [PHP 8+](https://www.php.net/downloads.php)
+- [Node.js 18+](https://nodejs.org/)
 - [Git](https://git-scm.com/downloads)
 - Beat Saber installed on the same PC as OBS
 - **BeatSaberPlus** installed with [BSManager](https://www.bsmanager.io/)
@@ -58,9 +59,9 @@ That is the most beginner-friendly path for this repository.
 
 Typical flow:
 
-1. Install Docker Desktop and Git.
+1. Install PHP, Node.js, and Git.
 2. Install **BeatSaberPlus** with **BSManager**.
-3. Follow the Docker guide in [docs/docker.md](docs/docker.md).
+3. Follow the PHP guide in [docs/php.md](docs/php.md).
 4. Open the local setup page, copy the generated URL, and paste it into OBS as a Browser Source.
 
 ## How It Works
@@ -96,7 +97,7 @@ The overlay page can load without the game, but live stats only appear when Beat
 
 1. Install one supported Beat Saber plugin and any dependencies it requires.
 2. Start Beat Saber so the plugin can expose live data.
-3. Run this overlay locally with Docker or Apache + PHP.
+3. Run this overlay locally with PHP (built-in server) or Docker.
 4. Open the overlay in your browser and use the built-in setup UI to generate the final OBS URL. See the setup page URLs in the hosting section below.
 5. Add that generated URL to an OBS **Browser Source**.
 
@@ -128,11 +129,21 @@ OBS notes:
 
 Choose one local hosting method:
 
-### Recommended: Docker
+### Recommended: PHP built-in server
 
-For most users, Docker is the easiest way to get a working local instance.
+For most users, the PHP built-in server is the easiest way to get a working local instance.
 
-The Docker guide includes the exact copy/paste commands and explains how to open a command-line window before running them.
+The PHP guide includes the exact copy/paste commands and explains how to open a command-line window before running them.
+
+See [docs/php.md](docs/php.md) for the full setup.
+
+PHP setup page:
+
+- [http://127.0.0.1:8080/index.html](http://127.0.0.1:8080/index.html)
+
+### Alternative: Docker
+
+Use Docker if you prefer running the overlay in a container.
 
 See [docs/docker.md](docs/docker.md) for the full setup.
 
@@ -140,13 +151,11 @@ Docker setup page:
 
 - [http://localhost:8080/index.html](http://localhost:8080/index.html)
 
-### Alternative: Apache + PHP
+### Advanced: Apache + PHP
 
-If you prefer running it with a local web server instead of Docker, use the Apache + PHP setup guide:
+Use Apache only if you already have a local Apache/PHP environment and prefer that setup.
 
-That guide also includes the exact commands to copy/paste and explains the local Apache/PHP requirements first.
-
-[docs/php.md](docs/php.md)
+See [docs/apache.md](docs/apache.md) for the full setup.
 
 Apache + PHP setup page:
 
@@ -169,7 +178,7 @@ Existing credits from the original project:
 - If you play and stream from the same PC, the default setup values usually work without extra changes.
 - If Beat Saber runs on another PC, open the setup UI and change the connection target to that machine instead of leaving the local default.
 - If your selected plugin has its own dependencies or in-game module settings, verify those before troubleshooting the local server setup.
-- If you only need a reliable local setup, prefer the Docker path first.
+- If you only need a reliable local setup, prefer the PHP built-in server path first.
 
 ## Contact and Upstream
 

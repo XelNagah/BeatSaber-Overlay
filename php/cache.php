@@ -7,7 +7,7 @@
  * Adapted for PHP 8
  */
 class Cache_System {
-    private string $CACHE_FOLDER = "Cache";
+    private string $CACHE_FOLDER = __DIR__ . "/Cache";
 
     ////////////////////////
     /// PRIVATE FUNCTIONS //

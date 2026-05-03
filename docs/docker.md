@@ -2,7 +2,7 @@
 
 ## Who This Is For
 
-Use this guide if you want the easiest local setup.
+Use this guide if you prefer running the overlay in Docker.
 
 Typical beginner scenario:
 

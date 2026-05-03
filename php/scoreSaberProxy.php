@@ -1,5 +1,5 @@
 <?php
-require_once("./cache.php");
+require_once(__DIR__ . "/cache.php");
 $cache_system = new Cache_System();
 
 $_SCORESABER_URL_API = "https://scoresaber.com/api/";
