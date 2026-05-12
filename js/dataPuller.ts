@@ -72,8 +72,10 @@ export class DataPuller {
         if (dataEvent.LevelFinished) {
             this._songCard.songCardData.finished = true;
 
-            if (!this._playerCard.playerCardData.disabled)
+            if (!this._playerCard.playerCardData.disabled) {
                 this._playerCard.playerCardData.needUpdate = true;
+                this._playerCard.scheduleForcedRefresh();
+            }
         }
 
         if (dataEvent.LevelQuit) {

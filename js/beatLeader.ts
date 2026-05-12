@@ -8,8 +8,11 @@ export class BeatLeader {
         this._tools = new Tools();
     }
 
-    public async getPlayerInfo(playerId: string): Promise<Globals.I_beatLeaderPlayerJSON> {
-        return await this._tools.getMethod(`./php/beatLeaderProxy.php/?playerId=${encodeURIComponent(playerId)}`);
+    public async getPlayerInfo(playerId: string, force = false): Promise<Globals.I_beatLeaderPlayerJSON> {
+        return await this._tools.getMethod(
+            `./php/beatLeaderProxy.php/?playerId=${encodeURIComponent(playerId)}`
+            + (force ? "&force=1" : "")
+        );
     }
 
     public async getLeaderboardInfo(hash: string, difficulty: string, characteristic: string): Promise<Globals.I_beatLeaderLeaderboardJSON> {

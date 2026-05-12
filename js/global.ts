@@ -164,6 +164,9 @@ export namespace Globals {
         display: boolean;           // Player Card is displayed ?
         alwaysDisplayed: boolean;   // Player Card is always displayed ?
         needUpdate: boolean;        // Player Card need an update ?
+        forceRefreshPending: boolean;   // Player Card has a forced refresh queued ?
+        forceRefreshAttempts: number;   // Forced refresh attempts already made
+        forceRefreshNextAt: number;     // Timestamp (ms) for the next forced refresh attempt
         position: string;           // Position of Player Card (see DISPLAY_POSITION)
         skin: string;               // Skin of Player Card (see SKIN_AVAILABLE.playerCard)
         scale: number;              // Scale of Player Card

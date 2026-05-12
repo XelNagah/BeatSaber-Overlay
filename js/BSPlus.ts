@@ -9,6 +9,7 @@ export class BSPlus {
     /////////////////////
     private _playerCard: PlayerCard;
     private _songCard: SongCard;
+    private _prevGameState: string = "";
 
     constructor() {
         this._playerCard = PlayerCard.Instance;
@@ -29,6 +30,9 @@ export class BSPlus {
     private eHandler(dataEvent: Globals.I_bsPlusObject): void {
         switch(dataEvent._event) {
             case "gameState":
+                const prevGameState = this._prevGameState;
+                this._prevGameState = dataEvent.gameStateChanged;
+
                 switch(dataEvent.gameStateChanged) {
                     case "Menu":
                         this._songCard.songCardData.started = false;
@@ -39,6 +43,8 @@ export class BSPlus {
                         if (!this._playerCard.playerCardData.disabled) {
                             this._playerCard.playerCardData.needUpdate = true;
                             this._playerCard.playerCardData.display = true;
+                            if (prevGameState === "Playing")
+                                this._playerCard.scheduleForcedRefresh();
                         }
                         break;
 

@@ -12,10 +12,29 @@ if (!is_dir($cacheDir)) {
     @mkdir($cacheDir, 0777, true);
 }
 
-$cacheFile = $cacheDir . DIRECTORY_SEPARATOR . 'beatleader_' . preg_replace('/[^a-zA-Z0-9_\-]/', '', $playerId) . '.json';
+$playerIdSafe = preg_replace('/[^a-zA-Z0-9_\-]/', '', $playerId);
+$cacheFile = $cacheDir . DIRECTORY_SEPARATOR . 'beatleader_' . $playerIdSafe . '.json';
+$cooldownFile = $cacheDir . DIRECTORY_SEPARATOR . 'beatleader_force_ts_' . $playerIdSafe . '.txt';
 $cacheTtlSeconds = 300; // 5 min
+$forceCooldownSeconds = 10;
+$force = isset($_GET['force']) && $_GET['force'] === '1';
 
-if (file_exists($cacheFile) && (time() - filemtime($cacheFile) < $cacheTtlSeconds)) {
+if ($force) {
+    $lastForced = file_exists($cooldownFile) ? (int)file_get_contents($cooldownFile) : 0;
+    if ((time() - $lastForced) < $forceCooldownSeconds) {
+        if (file_exists($cacheFile)) {
+            readfile($cacheFile);
+            exit;
+        }
+
+        echo json_encode(["errorMessage" => "Forced cooldown, no cache"]);
+        exit;
+    }
+
+    @file_put_contents($cooldownFile, (string)time());
+}
+
+if (!$force && file_exists($cacheFile) && (time() - filemtime($cacheFile) < $cacheTtlSeconds)) {
     readfile($cacheFile);
     exit;
 }
@@ -137,10 +156,18 @@ foreach ($apiBases as $base) {
 }
 
 if ($normalized === null) {
+    if (file_exists($cacheFile)) {
+        readfile($cacheFile);
+        exit;
+    }
+
     $output = ["errorMessage" => $lastError ?? "Player not found"];
 } else {
     $output = $normalized;
+
+    if (!$force) {
+        file_put_contents($cacheFile, json_encode($output, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
+    }
 }
 
-file_put_contents($cacheFile, json_encode($output, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
 echo json_encode($output, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);

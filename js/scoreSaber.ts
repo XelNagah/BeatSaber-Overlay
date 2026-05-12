@@ -15,8 +15,12 @@ export class ScoreSaber {
     /////////////////////
     // PUBLIC FUNCTION //
     /////////////////////
-    public async getPlayerInfo(playerId: string): Promise<Globals.I_scoreSaberPlayerJSON> {
-        return await this._tools.getMethod(Globals.SCORESABER_API_PROXY_URL + "/?playerId=" + playerId);
+    public async getPlayerInfo(playerId: string, force = false): Promise<Globals.I_scoreSaberPlayerJSON> {
+        return await this._tools.getMethod(
+            Globals.SCORESABER_API_PROXY_URL
+            + "/?playerId=" + encodeURIComponent(playerId)
+            + (force ? "&force=1" : "")
+        );
     }
 
     public async getLeaderboardInfo(hash: string, difficulty: number, gameMode: string): Promise<Globals.I_scoreSaberLeaderboardJSON> {
